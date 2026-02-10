@@ -94,34 +94,49 @@
 
     <div id="responseMsg"></div>
 </div>
-
 <script>
-function sendResponse(answer) {
+/* -------- Floating hearts generator -------- */
+function createHeart(){
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "❤️";
+    heart.style.left = Math.random()*100 + "vw";
+    heart.style.animationDuration = (4+Math.random()*4)+"s";
+    document.body.appendChild(heart);
 
-    // 🔴 PUT YOUR ENDPOINT URL HERE
-    const endpoint = "https://your-endpoint-url.com/response";
+    setTimeout(()=>heart.remove(),8000);
+}
+setInterval(createHeart, 400);
 
-    fetch(endpoint, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            name: "Clara Valentine Page",
-            response: answer,
-            time: new Date().toISOString()
-        })
-    })
-    .then(() => {
-        document.getElementById("responseMsg").innerText =
-            "Response sent ❤️ Thank you!";
-    })
-    .catch(() => {
-        document.getElementById("responseMsg").innerText =
-            "Response recorded locally ❤️";
+/* -------- Music autoplay fallback -------- */
+function startMusic(){
+    document.getElementById("music").play();
+}
+
+/* -------- EmailJS Setup -------- */
+// YOU MUST CONFIGURE THESE FROM https://www.emailjs.com/
+(function(){
+    emailjs.init("YOUR_PUBLIC_KEY"); // replace
+})();
+
+function sendResponse(answer){
+
+    const templateParams = {
+        to_email: "youngduwa265@gmail.com",
+        message: answer
+    };
+
+    emailjs.send("YOUR_SERVICE_ID","YOUR_TEMPLATE_ID",templateParams)
+    .then(function(){
+        document.getElementById("msg").innerText =
+            "Response sent ❤️";
+    }, function(){
+        document.getElementById("msg").innerText =
+            "Could not send — but she clicked: " + answer;
     });
 }
 </script>
 
 </body>
 </html>
+
