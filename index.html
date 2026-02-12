@@ -176,7 +176,7 @@ function confettiExplosion(){
 
 function sendResponse(answer, isYes){
 
-let msg=document.getElementById("msg");
+let msg = document.getElementById("msg");
 
 if(isYes){
     msg.innerText="Response submitted ❤️ I Love you so much chiphadzuwa!";
@@ -186,13 +186,21 @@ if(isYes){
 }
 
 emailjs.send("service_bxywgrd","template_7didhhn",{
-message: answer
+    message: answer,
+    time: new Date().toLocaleString()
+})
+.then(function(){
+    console.log("Email Sent");
+})
+.catch(function(err){
+    console.log("FAILED", err);
 });
+
 }
-</script>
 
 </body>
 </html>
+
 
 
 
