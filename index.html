@@ -171,8 +171,7 @@ let msg = document.getElementById("msg");
 
 emailjs.send("service_bxywgrd","template_7didhhn",{
     message: answer,
-    time: new Date().toLocaleString(),
-    email: "youngduwa265@gmail.com"
+   
 })
 .then(function(){
     if(isYes){
@@ -181,16 +180,11 @@ emailjs.send("service_bxywgrd","template_7didhhn",{
     }else{
         msg.innerText="But I truly care about you — your loss.";
     }
-    console.log("Email Sent");
-})
-.catch(function(err){
-    msg.innerText="Oops — something went wrong 😢";
-    console.log("FAILED", err);
-});
 
-}
+});
 
 </script>
 
 </body>
 </html>
+
