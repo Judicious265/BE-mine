@@ -5,34 +5,27 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>For Clara ❤️</title>
 
-<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 
 <style>
 
 /* Background */
 body {
   margin:0;
-font-family: system-ui, Arial, sans-serif;
-
-background: url("clara.jpeg") no-repeat;
-background-size: cover;
-background-position: center top;
-
-min-height: 100vh;
-
-display:flex;
-justify-content:center;
-align-items:center;
-
-overflow:hidden;
-
+  font-family: system-ui, Arial, sans-serif;
+  background:url("clara.jpeg") no-repeat center top/cover;
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  overflow:hidden;
 }
 
 /* Overlay */
 .overlay {
     background: rgba(0,0,0,0.35);
     width:100%;
-    height:100%;
+    min-height:100vh;
     display:flex;
     justify-content:center;
     align-items:center;
@@ -52,14 +45,13 @@ overflow:hidden;
     background: rgba(255,255,255,0.25);
     backdrop-filter: blur(14px);
     border:1px solid rgba(255,255,255,0.4);
-    padding:20px;
+    padding:22px;
     border-radius:18px;
     width:90%;
     max-width:420px;
     text-align:center;
     color:white;
     box-shadow:0 10px 30px rgba(0,0,0,0.5);
-
     animation: heartbeat 3s infinite;
 }
 
@@ -96,22 +88,19 @@ button {
     position:fixed;
     font-size:38px;
 }
-
 .tl { top:10px; left:10px; }
 .tr { top:10px; right:10px; }
 .bl { bottom:10px; left:10px; }
 .br { bottom:10px; right:10px; }
 
-/* ---------- Confetti ---------- */
+/* Confetti */
 .confetti {
     position:fixed;
     width:8px;
     height:8px;
-    background:red;
     top:0;
     animation: fall 3s linear forwards;
 }
-
 @keyframes fall {
     to {
         transform: translateY(100vh) rotate(720deg);
@@ -137,7 +126,7 @@ button {
 <p>
 Ever since I met you, you've been the best thing that has ever happened in my life.
 I have never loved any woman like I do with you.
-You're a woman I've been praying for and someone I really want to stay close with for the rest of my life. Sangandilengele wina koma IWE!! you're a one in a billion
+You're a woman I've been praying for and someone I really want to stay close with for the rest of my life.
 </p>
 
 <div class="question">Will you be my Valentine?</div>
@@ -156,10 +145,11 @@ No 😅
 </div>
 
 <script>
-(function(){
-emailjs.init("LqW2mAfvnN9B_leO1");
-})();
 
+// Initialize EmailJS
+emailjs.init("LqW2mAfvnN9B_leO1");
+
+// Confetti
 function confettiExplosion(){
     for(let i=0;i<120;i++){
         const c=document.createElement("div");
@@ -174,34 +164,33 @@ function confettiExplosion(){
     }
 }
 
+// Send response
 function sendResponse(answer, isYes){
 
 let msg = document.getElementById("msg");
 
-if(isYes){
-    msg.innerText="Response submitted ❤️ I Love you so much chiphadzuwa!";
-    confettiExplosion();
-}else{
-    msg.innerText="But I truly care about you — your loss.";
-}
-
 emailjs.send("service_bxywgrd","template_7didhhn",{
     message: answer,
-    time: new Date().toLocaleString()
+    time: new Date().toLocaleString(),
+    email: "youngduwa265@gmail.com"
 })
 .then(function(){
+    if(isYes){
+        msg.innerText="Response submitted ❤️ I Love you so much chiphadzuwa!";
+        confettiExplosion();
+    }else{
+        msg.innerText="But I truly care about you — your loss.";
+    }
     console.log("Email Sent");
 })
 .catch(function(err){
+    msg.innerText="Oops — something went wrong 😢";
     console.log("FAILED", err);
 });
 
 }
 
+</script>
+
 </body>
 </html>
-
-
-
-
-
