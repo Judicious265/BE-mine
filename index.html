@@ -146,7 +146,7 @@ No 😅
 
 <script>
 
-// Confetti
+  // confettiExplosion
 function confettiExplosion(){
     for(let i=0;i<120;i++){
         const c=document.createElement("div");
@@ -165,9 +165,6 @@ function confettiExplosion(){
 function sendResponse(answer, isYes){
 
 let msg = document.getElementById("msg");
-
-emailjs.send("service_bxywgrd","template_7didhhn",{
-    message: answer,
    
 })
 .then(function(){
@@ -184,5 +181,6 @@ emailjs.send("service_bxywgrd","template_7didhhn",{
 
 </body>
 </html>
+
 
 
