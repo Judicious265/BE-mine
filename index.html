@@ -86,30 +86,101 @@ You're a woman I've been praying for and someone I really want to stay close wit
 </div>
 
 <script>
-// Confetti explosion
-function confettiExplosion(){
-    for(let i=0;i<120;i++){
-        const c=document.createElement("div");
-        c.className="confetti";
-        c.style.left=Math.random()*100+"vw";
-        c.style.backgroundColor = ["#ff4d6d","#ffd166","#06d6a0","#118ab2","#ef476f"][Math.floor(Math.random()*5)];
-        c.style.animationDuration=(2+Math.random()*2)+"s";
-        document.body.appendChild(c);
-        setTimeout(()=>c.remove(),3000);
+<script>
+// Heart confetti explosion
+function confettiExplosion() {
+    const colors = ["#ff4d6d","#ffd166","#ff77aa","#ff99cc","#ff5a7f"];
+    for (let i = 0; i < 80; i++) {
+        const heart = document.createElement("div");
+        heart.className = "confetti";
+        heart.innerText = "❤️";
+        heart.style.position = "fixed";
+        heart.style.fontSize = `${12 + Math.random()*18}px`;
+        heart.style.left = Math.random()*100 + "vw";
+        heart.style.top = "-5vh";
+        heart.style.opacity = Math.random() * 0.8 + 0.2;
+        heart.style.transform = `rotate(${Math.random()*360}deg)`;
+        heart.style.transition = "transform 3s linear, top 3s linear, opacity 3s linear";
+        heart.style.color = colors[Math.floor(Math.random()*colors.length)];
+        document.body.appendChild(heart);
+
+        // Animate falling
+        setTimeout(() => {
+            heart.style.top = "100vh";
+            heart.style.transform = `rotate(${Math.random()*720}deg)`;
+            heart.style.opacity = 0;
+        }, 10);
+
+        // Remove after animation
+        setTimeout(() => heart.remove(), 3100);
     }
 }
 
-// Send response function
+// Pop-up text animation
+function popMessage(msgText) {
+    const popup = document.createElement("div");
+    popup.innerText = msgText;
+    popup.style.position = "fixed";
+    popup.style.top = "40%";
+    popup.style.left = "50%";
+    popup.style.transform = "translate(-50%, -50%) scale(0)";
+    popup.style.fontSize = "1.6rem";
+    popup.style.fontWeight = "bold";
+    popup.style.color = "#ff4d6d";
+    popup.style.textShadow = "0 0 10px #ff4d6d, 0 0 20px #ff77aa";
+    popup.style.transition = "transform 0.5s ease-out, opacity 1s ease-out";
+    popup.style.zIndex = 9999;
+    document.body.appendChild(popup);
+
+    // Animate pop
+    setTimeout(() => {
+        popup.style.transform = "translate(-50%, -50%) scale(1)";
+    }, 10);
+
+    // Fade out
+    setTimeout(() => {
+        popup.style.opacity = 0;
+    }, 1200);
+
+    // Remove element
+    setTimeout(() => popup.remove(), 2000);
+}
+
+// Updated sendResponse
 function sendResponse(answer, isYes) {
     let msg = document.getElementById("msg");
-    if(isYes){
+    if (isYes) {
         msg.innerText = "Response submitted ❤️ I love you so much chiphadzuwa!";
+        msg.style.animation = "pop 0.5s ease";
         confettiExplosion();
+        popMessage("❤️❤️❤️");
     } else {
         msg.innerText = "But I truly care about you — your loss.";
+        msg.style.animation = "shake 0.4s ease";
     }
 }
+
+// Optional: simple pop/shake animations
+const style = document.createElement("style");
+style.innerHTML = `
+@keyframes pop {
+    0% { transform: scale(0); opacity: 0; }
+    50% { transform: scale(1.2); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
+}
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+    100% { transform: translateX(0); }
+}
+#msg { display:inline-block; }
+`;
+document.head.appendChild(style);
 </script>
+
 
 </body>
 </html>
+
