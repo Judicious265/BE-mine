@@ -4,10 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>For Clara ❤️</title>
-
 <style>
-
-/* Background */
 body {
   margin:0;
   font-family: system-ui, Arial, sans-serif;
@@ -18,8 +15,6 @@ body {
   align-items:center;
   overflow:hidden;
 }
-
-/* Overlay */
 .overlay {
     background: rgba(0,0,0,0.35);
     width:100%;
@@ -28,8 +23,6 @@ body {
     justify-content:center;
     align-items:center;
 }
-
-/* Heartbeat animation */
 @keyframes heartbeat {
     0% { transform: scale(1); }
     25% { transform: scale(1.03); }
@@ -37,8 +30,6 @@ body {
     75% { transform: scale(1.04); }
     100% { transform: scale(1); }
 }
-
-/* Glass Card */
 .container {
     background: rgba(255,255,255,0.25);
     backdrop-filter: blur(14px);
@@ -52,63 +43,23 @@ body {
     box-shadow:0 10px 30px rgba(0,0,0,0.5);
     animation: heartbeat 3s infinite;
 }
-
 h1 { color:#ffd1dc; }
-
-.question {
-    font-size:1.4rem;
-    color:#ffe3ec;
-    font-weight:bold;
-    margin-top:15px;
-}
-
-button {
-    width:100%;
-    padding:14px;
-    margin-top:10px;
-    font-size:1rem;
-    border:none;
-    border-radius:10px;
-    cursor:pointer;
-}
-
+.question { font-size:1.4rem; color:#ffe3ec; font-weight:bold; margin-top:15px; }
+button { width:100%; padding:14px; margin-top:10px; font-size:1rem; border:none; border-radius:10px; cursor:pointer; }
 .yes { background:#ff4d6d; color:white; }
 .no { background:#ccc; }
-
-#msg {
-    margin-top:15px;
-    font-weight:bold;
-    font-size:1.1rem;
-}
-
-/* Corner Hearts */
-.corner {
-    position:fixed;
-    font-size:38px;
-}
+#msg { margin-top:15px; font-weight:bold; font-size:1.1rem; }
+.corner { position:fixed; font-size:38px; }
 .tl { top:10px; left:10px; }
 .tr { top:10px; right:10px; }
 .bl { bottom:10px; left:10px; }
 .br { bottom:10px; right:10px; }
-
-/* Confetti */
-.confetti {
-    position:fixed;
-    width:8px;
-    height:8px;
-    top:0;
-    animation: fall 3s linear forwards;
-}
+.confetti { position:fixed; width:8px; height:8px; top:0; animation: fall 3s linear forwards; }
 @keyframes fall {
-    to {
-        transform: translateY(100vh) rotate(720deg);
-        opacity:0;
-    }
+    to { transform: translateY(100vh) rotate(720deg); opacity:0; }
 }
-
 </style>
 </head>
-
 <body>
 
 <div class="corner tl">❤️</div>
@@ -118,9 +69,7 @@ button {
 
 <div class="overlay">
 <div class="container">
-
 <h1>Dear Clara ❤️</h1>
-
 <p>
 Ever since I met you, you've been the best thing that has ever happened in my life.
 I have never loved any woman like I do with you.
@@ -129,39 +78,30 @@ You're a woman I've been praying for and someone I really want to stay close wit
 
 <div class="question">Will you be my Valentine?</div>
 
-<button class="yes" onclick="sendResponse('Yes, absolutely ❤️', true)">
-Yes, absolutely ❤️
-</button>
-
-<button class="no" onclick="sendResponse('No 😅', false)">
-No 😅
-</button>
+<button class="yes" onclick="sendResponse('Yes, absolutely ❤️', true)">Yes, absolutely ❤️</button>
+<button class="no" onclick="sendResponse('No 😅', false)">No 😅</button>
 
 <div id="msg"></div>
-
 </div>
 </div>
 
 <script>
-
-  // confettiExplosion
+// Confetti explosion
 function confettiExplosion(){
     for(let i=0;i<120;i++){
         const c=document.createElement("div");
         c.className="confetti";
         c.style.left=Math.random()*100+"vw";
-        c.style.backgroundColor=
-            ["#ff4d6d","#ffd166","#06d6a0","#118ab2","#ef476f"]
-            [Math.floor(Math.random()*5)];
+        c.style.backgroundColor = ["#ff4d6d","#ffd166","#06d6a0","#118ab2","#ef476f"][Math.floor(Math.random()*5)];
         c.style.animationDuration=(2+Math.random()*2)+"s";
         document.body.appendChild(c);
         setTimeout(()=>c.remove(),3000);
     }
 }
 
+// Send response function
 function sendResponse(answer, isYes) {
     let msg = document.getElementById("msg");
-
     if(isYes){
         msg.innerText = "Response submitted ❤️ I love you so much chiphadzuwa!";
         confettiExplosion();
@@ -169,15 +109,7 @@ function sendResponse(answer, isYes) {
         msg.innerText = "But I truly care about you — your loss.";
     }
 }
-
-
 </script>
 
 </body>
 </html>
-
-
-
-
-
-
