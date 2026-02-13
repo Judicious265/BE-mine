@@ -6,57 +6,75 @@
 <title>For Clara ❤️</title>
 <style>
 body {
-  margin:0;
+  margin: 0;
   font-family: system-ui, Arial, sans-serif;
-  background:url("clara.jpeg") no-repeat center top/cover;
-  min-height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  overflow:hidden;
+  background: url("clara.jpeg") no-repeat center top/cover;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
 }
+
 .overlay {
-    background: rgba(0,0,0,0.35);
-    width:100%;
-    min-height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
+  background: rgba(0,0,0,0.35);
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+
 @keyframes heartbeat {
-    0% { transform: scale(1); }
-    25% { transform: scale(1.03); }
-    50% { transform: scale(1); }
-    75% { transform: scale(1.04); }
-    100% { transform: scale(1); }
+  0% { transform: scale(1); }
+  25% { transform: scale(1.03); }
+  50% { transform: scale(1); }
+  75% { transform: scale(1.04); }
+  100% { transform: scale(1); }
 }
+
 .container {
-    background: rgba(255,255,255,0.25);
-    backdrop-filter: blur(14px);
-    border:1px solid rgba(255,255,255,0.4);
-    padding:22px;
-    border-radius:18px;
-    width:90%;
-    max-width:420px;
-    text-align:center;
-    color:white;
-    box-shadow:0 10px 30px rgba(0,0,0,0.5);
-    animation: heartbeat 3s infinite;
+  background: rgba(255,255,255,0.25);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255,255,255,0.4);
+  padding: 22px;
+  border-radius: 18px;
+  width: 90%;
+  max-width: 420px;
+  text-align: center;
+  color: white;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  animation: heartbeat 3s infinite;
 }
+
 h1 { color:#ffd1dc; }
-.question { font-size:1.4rem; color:#ffe3ec; font-weight:bold; margin-top:15px; }
-button { width:100%; padding:14px; margin-top:10px; font-size:1rem; border:none; border-radius:10px; cursor:pointer; }
+.question { font-size: 1.4rem; color: #ffe3ec; font-weight: bold; margin-top: 15px; }
+button { width: 100%; padding: 14px; margin-top: 10px; font-size: 1rem; border: none; border-radius: 10px; cursor: pointer; }
 .yes { background:#ff4d6d; color:white; }
 .no { background:#ccc; }
-#msg { margin-top:15px; font-weight:bold; font-size:1.1rem; }
-.corner { position:fixed; font-size:38px; }
+#msg { margin-top: 15px; font-weight: bold; font-size: 1.1rem; display: inline-block; }
+
+.corner { position: fixed; font-size: 38px; }
 .tl { top:10px; left:10px; }
 .tr { top:10px; right:10px; }
 .bl { bottom:10px; left:10px; }
 .br { bottom:10px; right:10px; }
-.confetti { position:fixed; width:8px; height:8px; top:0; animation: fall 3s linear forwards; }
-@keyframes fall {
-    to { transform: translateY(100vh) rotate(720deg); opacity:0; }
+
+.confetti { position: fixed; top: -2vh; pointer-events: none; z-index: 9999; font-size: 16px; }
+
+@keyframes pop {
+  0% { transform: scale(0); opacity: 0; }
+  50% { transform: scale(1.2); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-5px); }
+  100% { transform: translateX(0); }
 }
 </style>
 </head>
@@ -68,55 +86,54 @@ button { width:100%; padding:14px; margin-top:10px; font-size:1rem; border:none;
 <div class="corner br">❤️</div>
 
 <div class="overlay">
-<div class="container">
-<h1>Dear Clara ❤️</h1>
-<p>
-Ever since I met you, you've been the best thing that has ever happened in my life.
-I have never loved any woman like I do with you.
-You're a woman I've been praying for and someone I really want to stay close with for the rest of my life.
-</p>
+  <div class="container">
+    <h1>Dear Clara ❤️</h1>
+    <p>
+      Ever since I met you, you've been the best thing that has ever happened in my life.
+      I have never loved any woman like I do with you.
+      You're a woman I've been praying for and someone I really want to stay close with for the rest of my life.
+    </p>
+    <div class="question">Will you be my Valentine?</div>
 
-<div class="question">Will you be my Valentine?</div>
+    <button class="yes" onclick="sendResponse('Yes, absolutely ❤️', true)">Yes, absolutely ❤️</button>
+    <button class="no" onclick="sendResponse('No 😅', false)">No 😅</button>
 
-<button class="yes" onclick="sendResponse('Yes, absolutely ❤️', true)">Yes, absolutely ❤️</button>
-<button class="no" onclick="sendResponse('No 😅', false)">No 😅</button>
-
-<div id="msg"></div>
-</div>
+    <div id="msg"></div>
+  </div>
 </div>
 
 <script>
-<script>
-// Heart confetti explosion
+// Soft falling heart confetti
 function confettiExplosion() {
     const colors = ["#ff4d6d","#ffd166","#ff77aa","#ff99cc","#ff5a7f"];
     for (let i = 0; i < 80; i++) {
         const heart = document.createElement("div");
         heart.className = "confetti";
         heart.innerText = "❤️";
-        heart.style.position = "fixed";
-        heart.style.fontSize = `${12 + Math.random()*18}px`;
+        const size = 14 + Math.random()*20;
+        heart.style.fontSize = `${size}px`;
         heart.style.left = Math.random()*100 + "vw";
-        heart.style.top = "-5vh";
-        heart.style.opacity = Math.random() * 0.8 + 0.2;
-        heart.style.transform = `rotate(${Math.random()*360}deg)`;
-        heart.style.transition = "transform 3s linear, top 3s linear, opacity 3s linear";
         heart.style.color = colors[Math.floor(Math.random()*colors.length)];
+        heart.style.opacity = Math.random()*0.7 + 0.3;
         document.body.appendChild(heart);
 
         // Animate falling
-        setTimeout(() => {
-            heart.style.top = "100vh";
-            heart.style.transform = `rotate(${Math.random()*720}deg)`;
-            heart.style.opacity = 0;
-        }, 10);
+        const duration = 4000 + Math.random()*2000;
+        const endX = parseFloat(heart.style.left) + (Math.random()*40-20);
+        heart.animate([
+            { transform: `translate(0, 0) rotate(0deg)` },
+            { transform: `translate(${endX - parseFloat(heart.style.left)}vw, 100vh) rotate(${360 + Math.random()*360}deg)` }
+        ], {
+            duration: duration,
+            easing: "linear",
+            fill: "forwards"
+        });
 
-        // Remove after animation
-        setTimeout(() => heart.remove(), 3100);
+        setTimeout(() => heart.remove(), duration);
     }
 }
 
-// Pop-up text animation
+// Floating pop-up hearts
 function popMessage(msgText) {
     const popup = document.createElement("div");
     popup.innerText = msgText;
@@ -124,7 +141,7 @@ function popMessage(msgText) {
     popup.style.top = "40%";
     popup.style.left = "50%";
     popup.style.transform = "translate(-50%, -50%) scale(0)";
-    popup.style.fontSize = "1.6rem";
+    popup.style.fontSize = "1.8rem";
     popup.style.fontWeight = "bold";
     popup.style.color = "#ff4d6d";
     popup.style.textShadow = "0 0 10px #ff4d6d, 0 0 20px #ff77aa";
@@ -132,21 +149,12 @@ function popMessage(msgText) {
     popup.style.zIndex = 9999;
     document.body.appendChild(popup);
 
-    // Animate pop
-    setTimeout(() => {
-        popup.style.transform = "translate(-50%, -50%) scale(1)";
-    }, 10);
-
-    // Fade out
-    setTimeout(() => {
-        popup.style.opacity = 0;
-    }, 1200);
-
-    // Remove element
+    setTimeout(() => popup.style.transform = "translate(-50%, -50%) scale(1)", 10);
+    setTimeout(() => popup.style.opacity = 0, 1400);
     setTimeout(() => popup.remove(), 2000);
 }
 
-// Updated sendResponse
+// Response handling
 function sendResponse(answer, isYes) {
     let msg = document.getElementById("msg");
     if (isYes) {
@@ -159,28 +167,7 @@ function sendResponse(answer, isYes) {
         msg.style.animation = "shake 0.4s ease";
     }
 }
-
-// Optional: simple pop/shake animations
-const style = document.createElement("style");
-style.innerHTML = `
-@keyframes pop {
-    0% { transform: scale(0); opacity: 0; }
-    50% { transform: scale(1.2); opacity: 1; }
-    100% { transform: scale(1); opacity: 1; }
-}
-@keyframes shake {
-    0% { transform: translateX(0); }
-    25% { transform: translateX(-5px); }
-    50% { transform: translateX(5px); }
-    75% { transform: translateX(-5px); }
-    100% { transform: translateX(0); }
-}
-#msg { display:inline-block; }
-`;
-document.head.appendChild(style);
 </script>
-
 
 </body>
 </html>
-
